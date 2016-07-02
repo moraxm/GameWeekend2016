@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     // Player data
     public Card[] cards;
+    Battle currentBattle;
 
     void DestroyChilds()
     {
@@ -129,6 +130,9 @@ public class GameManager : MonoBehaviour
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.TIJERA] = 1;
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.LAGARTO] = -1;
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.SPOCK] = 0;
+
+        currentBattle = new Battle();
+        currentBattle.Init();
     }
 
     public int Play()
@@ -136,27 +140,35 @@ public class GameManager : MonoBehaviour
         Card currentCardPlayer1 = cardsPlayer1[m_currentCardPlayer1];
         Card currentCardPlayer2 = cardsPlayer2[m_currentCardPlayer2];
         if (!currentCardPlayer1 || !currentCardPlayer1) return -1;
-
+        if (currentBattle.isFinished) return -1;
+        
         int result = fightTable[(int)currentCardPlayer1.type][(int)currentCardPlayer1.type];
+        int toReturn = -1;
         switch (result)
         {
             case 1:
                 // Player 1 wins
-                return 1;
+                toReturn = 1;
                 break;
             case 0:
-                return 0;
+                toReturn = 0;
                 break;
             case -1:
                 // Player 2 wins
-                return 2;
+                toReturn = 2;
                 break;
             default:
                 break;
         }
 
-        return -1;
+        currentBattle.NextState();
+        return toReturn;
 
+    }
+
+    public bool isBattleFinished
+    {
+        get { return currentBattle.isFinished; }
     }
 
 }
