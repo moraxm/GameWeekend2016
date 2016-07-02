@@ -159,6 +159,7 @@ public class GameManager : MonoBehaviour
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.SPOCK] = 0;
 
         // Cards
+        m_AllCardColletion = new Dictionary<Card.Collection, List<Card>>();
         foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))
         {
             m_AllCardColletion[col] = new List<Card>();
