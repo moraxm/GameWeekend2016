@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,11 @@ public class GameManager : MonoBehaviour
 
     // Current game stadistics
     // Player 1
+    public Card betCardPlayer1
+    {
+        set { currentBattle.betCardPlayer1 = value; }
+        get { return currentBattle.betCardPlayer1; }
+    }
     int m_player1points;
     public int player1points
     {
@@ -37,6 +44,11 @@ public class GameManager : MonoBehaviour
     }
 
     // Player 2
+    public Card betCardPlayer2
+    {
+        set { currentBattle.betCardPlayer2 = value; }
+        get { return currentBattle.betCardPlayer2; }
+    }
     int m_player2points;
     public int player2points
     {
@@ -67,7 +79,22 @@ public class GameManager : MonoBehaviour
     public int[][] fightTable;
 
     // Player data
-    public Card[] cards;
+    public Dictionary<Card.Collection, List<Card>> m_playerCardColletion;
+    public Dictionary<Card.Collection, List<Card>> playerCardCollection
+    {
+        get { return m_playerCardColletion; }
+    }
+
+    // Inspector cards
+    public Card[] allCards;
+    public Dictionary<Card.Collection, List<Card>> m_AllCardColletion;
+    public Dictionary<Card.Collection, List<Card>> allCardCollection
+    {
+        get { return m_AllCardColletion; }
+    }
+
+
+    Battle currentBattle;
 
     void DestroyChilds()
     {
@@ -99,6 +126,7 @@ public class GameManager : MonoBehaviour
             fightTable[i] = new int[(int)Card.CardType.COUNT];
         }
 
+        // Fight data
         // PIEDRA
         fightTable[(int)Card.CardType.PIEDRA][(int)Card.CardType.PIEDRA] = 0;
         fightTable[(int)Card.CardType.PIEDRA][(int)Card.CardType.PAPEL] = -1;
@@ -129,34 +157,68 @@ public class GameManager : MonoBehaviour
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.TIJERA] = 1;
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.LAGARTO] = -1;
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.SPOCK] = 0;
-    }
+
+        // Cards
+        foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))
+        {
+            m_AllCardColletion[col] = new List<Card>();
+        }
+
+        foreach (Card c in allCards)
+        {
+            GameObject go = Instantiate(c.gameObject);
+            Card card = go.GetComponent<Card>();
+            m_AllCardColletion[card.collection].Add(card);
+        }
+
+        foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))
+        {
+            m_AllCardColletion[col].Sort(
+                delegate(Card c1, Card c2)
+                { 
+                    return c1.collectionNumber.CompareTo(c2.collectionNumber);
+                }
+            );
+        }
+
+        currentBattle = new Battle();
+        currentBattle.Init();
+    } 
 
     public int Play()
     {
         Card currentCardPlayer1 = cardsPlayer1[m_currentCardPlayer1];
         Card currentCardPlayer2 = cardsPlayer2[m_currentCardPlayer2];
         if (!currentCardPlayer1 || !currentCardPlayer1) return -1;
-
+        if (currentBattle.isFinished) return -1;
+        
         int result = fightTable[(int)currentCardPlayer1.type][(int)currentCardPlayer1.type];
+        int toReturn = -1;
         switch (result)
         {
             case 1:
                 // Player 1 wins
-                return 1;
+                ++m_player1points;
+                toReturn = 1;
                 break;
             case 0:
-                return 0;
+                toReturn = 0;
                 break;
             case -1:
                 // Player 2 wins
-                return 2;
+                ++m_player2points;
+                toReturn = 2;
                 break;
             default:
                 break;
         }
+        currentBattle.NextState();
+        return toReturn;
+    }
 
-        return -1;
-
+    public bool isBattleFinished
+    {
+        get { return currentBattle.isFinished; }
     }
 
 }
