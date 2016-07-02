@@ -103,4 +103,28 @@ public class GameManager : MonoBehaviour
         return -1;
 
     }
+    
+    public GamePlayerData GetPlayer(int pos)
+    {
+      if (pos == 1)
+      {
+        return m_player1;
+      }
+      else
+      {
+        return m_player2;
+      }
+
+    }
+
+    public GameObject InstantiateCard(Card c)
+    {
+      return new GameObject(c.name);
+    }
+
+    public void SetCurrentCard(Card c, int player)
+    {
+
+    }
+
 }
