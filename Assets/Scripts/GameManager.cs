@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour 
+public class GameManager : MonoBehaviour
 {
     static private GameManager m_instance;
     static public GameManager GetInstance()
@@ -10,19 +10,72 @@ public class GameManager : MonoBehaviour
     }
 
     // Current game stadistics
+    // Player 1
     int m_player1points;
-    int m_player2points;
-
+    public int player1points
+    {
+        get { return m_player1points; }
+    }
     Card[] m_cardsPlayer1 = new Card[2];
-    Card[] m_cardsPlayer2 = new Card[2];
-    Card m_currentCardPlayer1;
-    Card m_currentCardPlayer2;
+    public Card[] cardsPlayer1
+    {
+        get { return m_cardsPlayer1; }
+    }
+    public void SetCardsPlayer1(Card card1, Card card2)
+    {
+        DestroyChilds();
+        cardsPlayer1[0] = card1;
+        card1.transform.SetParent(transform);
+        cardsPlayer1[1] = card2;
+        card2.transform.SetParent(transform);
+    }
+    int m_currentCardPlayer1;
+    public int currentCardPlayer1
+    {
+        get { return m_currentCardPlayer1; }
+        set { m_currentCardPlayer1 = value; }
+    }
 
+    // Player 2
+    int m_player2points;
+    public int player2points
+    {
+        get { return m_player2points; }
+    }
+
+    
+    Card[] m_cardsPlayer2 = new Card[2];
+    public Card[] cardsPlayer2
+    {
+        get { return m_cardsPlayer2; }
+    }
+    public void SetCardsPlayer2(Card card1, Card card2)
+    {
+        DestroyChilds();
+        cardsPlayer2[0] = card1;
+        card1.transform.SetParent(transform);
+        cardsPlayer2[1] = card2;
+        card2.transform.SetParent(transform);
+    }
+    int m_currentCardPlayer2;
+    public int currentCardPlayer2
+    {
+        get { return m_currentCardPlayer2; }
+        set { m_currentCardPlayer2 = value; }
+    }
 
     public int[][] fightTable;
 
     // Player data
     public Card[] cards;
+
+    void DestroyChilds()
+    {
+        foreach (Transform t in transform)
+        {
+            Destroy(t.gameObject);
+        }
+    }
 
     void Awake()
     {
@@ -35,7 +88,7 @@ public class GameManager : MonoBehaviour
             m_instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        
+
     }
 
     void Start()
@@ -80,9 +133,11 @@ public class GameManager : MonoBehaviour
 
     public int Play()
     {
-        if (!m_currentCardPlayer1 || !m_currentCardPlayer2) return -1;
+        Card currentCardPlayer1 = cardsPlayer1[m_currentCardPlayer1];
+        Card currentCardPlayer2 = cardsPlayer2[m_currentCardPlayer2];
+        if (!currentCardPlayer1 || !currentCardPlayer1) return -1;
 
-        int result = fightTable[(int)m_currentCardPlayer1.type][(int)m_currentCardPlayer2.type];
+        int result = fightTable[(int)currentCardPlayer1.type][(int)currentCardPlayer1.type];
         switch (result)
         {
             case 1:
@@ -101,29 +156,6 @@ public class GameManager : MonoBehaviour
         }
 
         return -1;
-
-    }
-    
-    public GamePlayerData GetPlayer(int pos)
-    {
-      if (pos == 1)
-      {
-        return m_player1;
-      }
-      else
-      {
-        return m_player2;
-      }
-
-    }
-
-    public GameObject InstantiateCard(Card c)
-    {
-      return new GameObject(c.name);
-    }
-
-    public void SetCurrentCard(Card c, int player)
-    {
 
     }
 
