@@ -222,4 +222,30 @@ public class GameManager : MonoBehaviour
         get { return currentBattle.isFinished; }
     }
 
+    public Card GetRandomCard()
+    {
+        int rCollection = UnityEngine.Random.Range(0, m_AllCardColletion.Count);
+        int rCard = UnityEngine.Random.Range(0, m_AllCardColletion[(Card.Collection)rCollection].Count);
+        Card newCard = m_AllCardColletion[(Card.Collection)rCollection][rCard];
+
+        bool found = false;
+        Card toReturn = newCard;
+        foreach (Card c in m_playerCardColletion[newCard.collection])
+        {
+            if (c.collectionNumber == newCard.collectionNumber)
+            {
+                found = true;
+                ++c.cardCount;
+                toReturn = c;
+                break;
+            }
+        }
+        if (!found)
+        {
+            m_playerCardColletion[newCard.collection].Add(newCard);
+            
+        }
+        return toReturn;
+    }
+
 }
