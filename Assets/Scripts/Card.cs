@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class Card : MonoBehaviour
     public CardType type;
     public int collectionNumber;
     public Collection collection;
+    public Sprite image;
 
     public int Fight(Card other)
     {
