@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BattleManager: MonoBehaviour {
 
@@ -9,6 +10,10 @@ public class BattleManager: MonoBehaviour {
 
   public GameObject centerPosition;
   float timeAnimation = 2;
+
+  public Text player1Text;
+  public Text player2Text;
+ 
 
 	void Start()
   {
@@ -27,6 +32,9 @@ public class BattleManager: MonoBehaviour {
       ColocateCard(go, 2 + i);
     }
 
+    player1Text.text = gm.Player1Points.ToString();
+    player1Text.text = gm.Player2Points.ToString();
+
   }
   private void ColocateCard(GameObject go, int pos)
   {
@@ -41,7 +49,6 @@ public class BattleManager: MonoBehaviour {
     int victory = gm.Play();
     StartCoroutine(StartAnimation(victory));
   }
-
   private IEnumerator StartAnimation(int victory)
   {
     float timeAcum = 0;
