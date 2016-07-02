@@ -3,20 +3,26 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour 
 {
-    
-
     static private GameManager m_instance;
     static public GameManager GetInstance()
     {
         return m_instance;
     }
 
+    // Current game stadistics
+    int m_player1points;
+    int m_player2points;
+
+    Card[] m_cardsPlayer1 = new Card[2];
+    Card[] m_cardsPlayer2 = new Card[2];
+    Card m_currentCardPlayer1;
+    Card m_currentCardPlayer2;
+
+
     public int[][] fightTable;
+
     // Player data
     public Card[] cards;
-
-    GamePlayerData m_player1;
-    GamePlayerData m_player2;
 
     void Awake()
     {
@@ -30,12 +36,6 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         
-    }
-
-    public void SetPlayers(GamePlayerData p1, GamePlayerData p2)
-    {
-        m_player1 = p1;
-        m_player2 = p2;
     }
 
     void Start()
@@ -80,22 +80,28 @@ public class GameManager : MonoBehaviour
 
     public int Play()
     {
-        int player1Result = 0;
-        int player2Result = 0;
-        for (int i = 0; i < m_player1.cards.Count; ++i)
+        if (!m_currentCardPlayer1 || !m_currentCardPlayer2) return -1;
+
+        int result = fightTable[(int)m_currentCardPlayer1.type][(int)m_currentCardPlayer2.type];
+        switch (result)
         {
-            if (m_player1.cards[1].Fight(m_player2.cards[i]) == 1)
-            {
+            case 1:
                 // Player 1 wins
-                ++player1Result;
-            }
-            else
-            {
-                // PLayer 2 wins
-                ++player2Result;
-            }
+                return 1;
+                break;
+            case 0:
+                return 0;
+                break;
+            case -1:
+                // Player 2 wins
+                return 2;
+                break;
+            default:
+                break;
         }
-        return player1Result > player2Result ? 1 : 2;
+
+        return -1;
+
     }
     
     public GamePlayerData GetPlayer(int pos)
