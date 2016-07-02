@@ -57,10 +57,10 @@ public class BattleManager : MonoBehaviour
         float timeAcum = 0;
         float deltaTime = 0.1f;
 
-        //GameObject go1 = gm.GetCurrentCard(1);
-        //GameObject go2 = gm.GetCurrentCard(2);
-        GameObject go1 = null;
-        GameObject go2 = null;
+    //GameObject go1 = gm.GetCurrentCard(1);
+    //GameObject go2 = gm.GetCurrentCard(2);
+        GameObject go1 = gm.cardsPlayer1[gm.currentCardPlayer1].gameObject;
+        GameObject go2 = gm.cardsPlayer1[gm.currentCardPlayer1].gameObject;
         GameObject goWin;
 
         if (victory == 1)
