@@ -18,5 +18,7 @@ public class CardUI : MonoBehaviour {
     {
         name.text = card.name;
         description.text = card.description;
+        image.sprite = card.image;
+        collection.text = card.collection + card.collectionNumber + " of 10";
     }
 }

@@ -9,7 +9,7 @@ public class GetQuantity : MonoBehaviour {
         Card card = GetComponentInParent<Card>();
         Text text = GetComponent<Text>();
         // TODO: 
-        int quantity = 1;// GameManager.GetInstance().getCardQuantity();
+        int quantity = 1;// GameManager.GetInstance().;
         text.text = "x" + quantity;
 	}
 	

@@ -10,11 +10,11 @@ public class IsUnlocked : MonoBehaviour {
 	void Start () {
         Card card = gameObject.GetComponentInParent<Card>();
 
-        foreach (Card c in GameManager.GetInstance().cards) { 
-            if (c == card)
+        List<Card> cards = GameManager.GetInstance().m_playerCardColletion[card.collection];
+
+            if (cards.Contains(card))
             {
                 gameObject.SetActive(false);
             }
-        }
 	}
 }
