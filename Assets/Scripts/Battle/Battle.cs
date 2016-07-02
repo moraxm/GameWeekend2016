@@ -4,6 +4,19 @@ using System.Collections;
 public class Battle 
 {
     const int WAVES = 3;
+    private Card m_betCard1;
+    public Card betCardPlayer1
+    {
+        get { return m_betCard1; }
+        set { m_betCard1 = value; }
+    }
+    private Card m_betCard2;
+    public Card betCardPlayer2
+    {
+        get { return m_betCard2; }
+        set { m_betCard2 = value; }
+    }
+
     public enum GameState
     {
         SELECT_CARDS,

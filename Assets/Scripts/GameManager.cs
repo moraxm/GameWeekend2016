@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
 
     // Current game stadistics
     // Player 1
+    public Card betCardPlayer1
+    {
+        set { currentBattle.betCardPlayer1 = value; }
+        get { return currentBattle.betCardPlayer1; }
+    }
     int m_player1points;
     public int player1points
     {
@@ -39,6 +44,11 @@ public class GameManager : MonoBehaviour
     }
 
     // Player 2
+    public Card betCardPlayer2
+    {
+        set { currentBattle.betCardPlayer2 = value; }
+        get { return currentBattle.betCardPlayer2; }
+    }
     int m_player2points;
     public int player2points
     {
@@ -188,6 +198,7 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 // Player 1 wins
+                ++m_player1points;
                 toReturn = 1;
                 break;
             case 0:
@@ -195,15 +206,14 @@ public class GameManager : MonoBehaviour
                 break;
             case -1:
                 // Player 2 wins
+                ++m_player2points;
                 toReturn = 2;
                 break;
             default:
                 break;
         }
-
         currentBattle.NextState();
         return toReturn;
-
     }
 
     public bool isBattleFinished
