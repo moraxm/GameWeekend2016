@@ -12,11 +12,20 @@ public class Card : MonoBehaviour
         SPOCK,
         COUNT,
     }
+    public enum Collection
+    {
+        POLITICIAN,
+        CINEMA,
+        MUSIC,
+        SPORTS,
+        TV,
+    }
 
     public string name;
     public string description;
     public CardType type;
     public int collectionNumber;
+    public Collection collection;
 
     public int Fight(Card other)
     {

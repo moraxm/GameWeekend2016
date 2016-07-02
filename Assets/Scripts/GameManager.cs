@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -67,7 +69,21 @@ public class GameManager : MonoBehaviour
     public int[][] fightTable;
 
     // Player data
-    public Card[] cards;
+    public Dictionary<Card.Collection, List<Card>> m_playerCardColletion;
+    public Dictionary<Card.Collection, List<Card>> playerCardCollection
+    {
+        get { return m_playerCardColletion; }
+    }
+
+    // Inspector cards
+    public Card[] allCards;
+    public Dictionary<Card.Collection, List<Card>> m_AllCardColletion;
+    public Dictionary<Card.Collection, List<Card>> allCardCollection
+    {
+        get { return m_AllCardColletion; }
+    }
+
+
     Battle currentBattle;
 
     void DestroyChilds()
@@ -100,6 +116,7 @@ public class GameManager : MonoBehaviour
             fightTable[i] = new int[(int)Card.CardType.COUNT];
         }
 
+        // Fight data
         // PIEDRA
         fightTable[(int)Card.CardType.PIEDRA][(int)Card.CardType.PIEDRA] = 0;
         fightTable[(int)Card.CardType.PIEDRA][(int)Card.CardType.PAPEL] = -1;
@@ -131,9 +148,32 @@ public class GameManager : MonoBehaviour
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.LAGARTO] = -1;
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.SPOCK] = 0;
 
+        // Cards
+        foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))
+        {
+            m_AllCardColletion[col] = new List<Card>();
+        }
+
+        foreach (Card c in allCards)
+        {
+            GameObject go = Instantiate(c.gameObject);
+            Card card = go.GetComponent<Card>();
+            m_AllCardColletion[card.collection].Add(card);
+        }
+
+        foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))
+        {
+            m_AllCardColletion[col].Sort(
+                delegate(Card c1, Card c2)
+                { 
+                    return c1.collectionNumber.CompareTo(c2.collectionNumber);
+                }
+            );
+        }
+
         currentBattle = new Battle();
         currentBattle.Init();
-    }
+    } 
 
     public int Play()
     {
