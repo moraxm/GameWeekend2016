@@ -28,6 +28,7 @@ public class Card : MonoBehaviour
     public int collectionNumber;
     public Collection collection;
     public Sprite image;
+    public int cardCount;
 
     public int Fight(Card other)
     {

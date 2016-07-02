@@ -159,6 +159,7 @@ public class GameManager : MonoBehaviour
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.SPOCK] = 0;
 
         // Cards
+        m_AllCardColletion = new Dictionary<Card.Collection, List<Card>>();
         foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))
         {
             m_AllCardColletion[col] = new List<Card>();
@@ -219,6 +220,32 @@ public class GameManager : MonoBehaviour
     public bool isBattleFinished
     {
         get { return currentBattle.isFinished; }
+    }
+
+    public Card GetRandomCard()
+    {
+        int rCollection = UnityEngine.Random.Range(0, m_AllCardColletion.Count);
+        int rCard = UnityEngine.Random.Range(0, m_AllCardColletion[(Card.Collection)rCollection].Count);
+        Card newCard = m_AllCardColletion[(Card.Collection)rCollection][rCard];
+
+        bool found = false;
+        Card toReturn = newCard;
+        foreach (Card c in m_playerCardColletion[newCard.collection])
+        {
+            if (c.collectionNumber == newCard.collectionNumber)
+            {
+                found = true;
+                ++c.cardCount;
+                toReturn = c;
+                break;
+            }
+        }
+        if (!found)
+        {
+            m_playerCardColletion[newCard.collection].Add(newCard);
+            
+        }
+        return toReturn;
     }
 
 }
