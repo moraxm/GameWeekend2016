@@ -12,6 +12,7 @@ public class BattleManager: MonoBehaviour {
 
 	void Start()
   {
+    gm = GameManager.GetInstance();
     GamePlayerData p1 = gm.GetPlayer(1);
     GamePlayerData p2 = gm.GetPlayer(2);
 
@@ -30,7 +31,6 @@ public class BattleManager: MonoBehaviour {
   private void ColocateCard(GameObject go, int pos)
   {
     go.transform.position = positions[pos].transform.position;
-
   }
 
   public void SelectedCard(int pos)
@@ -47,8 +47,10 @@ public class BattleManager: MonoBehaviour {
     float timeAcum = 0;
     float deltaTime = 0.1f;
 
-    GameObject go1 = gm.GetCurrentCard(1);
-    GameObject go2 = gm.GetCurrentCard(2);
+    //GameObject go1 = gm.GetCurrentCard(1);
+    //GameObject go2 = gm.GetCurrentCard(2);
+    GameObject go1 = null;
+    GameObject go2 =  null;
     GameObject goWin;
 
     if (victory == 1)
