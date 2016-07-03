@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -99,7 +100,11 @@ public class BattleManager : MonoBehaviour
             goWin.transform.localScale = Vector3.Lerp(go1.transform.localScale, finalScale, timeAcum / timeAnimation);
             yield return new WaitForSeconds(deltaTime);
         }
-    }
 
+        if (GameManager.GetInstance().isBattleFinished)
+            SceneManager.LoadScene("MainMenu");
+        else
+            SceneManager.LoadScene("SelectCards");
+    }
 
 }

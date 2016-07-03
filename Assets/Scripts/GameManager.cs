@@ -16,7 +16,15 @@ public class GameManager : MonoBehaviour
     public Card betCardPlayer1
     {
         set { currentBattle.betCardPlayer1 = value; }
-        get { return currentBattle.betCardPlayer1; }
+        get 
+        {
+            if (currentBattle.betCardPlayer1 == null)
+            {
+                Debug.LogWarning("No bet card for player 1. You are probably playing a scene without using the normal workflow of the game. Using a random card");
+                currentBattle.betCardPlayer1 = GetRandomCard();
+            }
+            return currentBattle.betCardPlayer1; 
+        }
     }
     int m_player1points;
     public int player1points
@@ -26,7 +34,15 @@ public class GameManager : MonoBehaviour
     Card[] m_cardsPlayer1 = new Card[2];
     public Card[] cardsPlayer1
     {
-        get { return m_cardsPlayer1; }
+        get 
+        {
+            if (m_cardsPlayer1 == null)
+            {
+                SetCardsPlayer1(GetRandomCard(), GetRandomCard());
+                Debug.LogWarning("No cards for player 1. You are probably playing a scene without using the normal workflow of the game. Using a random card");
+            }
+            return m_cardsPlayer1; 
+        }
     }
     public void SetCardsPlayer1(Card card1, Card card2)
     {
@@ -47,7 +63,15 @@ public class GameManager : MonoBehaviour
     public Card betCardPlayer2
     {
         set { currentBattle.betCardPlayer2 = value; }
-        get { return currentBattle.betCardPlayer2; }
+        get 
+        {
+            if (currentBattle.betCardPlayer2 == null)
+            {
+                Debug.LogWarning("No bet card for player 2. You are probably playing a scene without using the normal workflow of the game. Using a random card");
+                currentBattle.betCardPlayer2 = GetRandomCard();
+            }
+            return currentBattle.betCardPlayer2; 
+        }
     }
     int m_player2points;
     public int player2points
@@ -59,7 +83,15 @@ public class GameManager : MonoBehaviour
     Card[] m_cardsPlayer2 = new Card[2];
     public Card[] cardsPlayer2
     {
-        get { return m_cardsPlayer2; }
+        get 
+        {
+            if (m_cardsPlayer2 == null)
+            {
+                SetCardsPlayer2(GetRandomCard(), GetRandomCard());
+                Debug.LogWarning("No cards for player 2. You are probably playing a scene without using the normal workflow of the game. Using a random card");
+            }
+            return m_cardsPlayer2; 
+        }
     }
     public void SetCardsPlayer2(Card card1, Card card2)
     {
