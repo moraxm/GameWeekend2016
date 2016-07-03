@@ -20,8 +20,7 @@ public class Battle
     public enum GameState
     {
         SELECT_CARDS,
-        SELECT_CARD,
-        SHOWING_RESULT,
+        BATTLE,
         COUNT,
     }
     GameState m_state;
@@ -30,6 +29,10 @@ public class Battle
         get { return m_state; }
     }
     int m_currentWave;
+    public int currentWave
+    {
+        get { return m_currentWave; }
+    }
     private bool m_finished;
     public bool isFinished
     {
@@ -43,17 +46,37 @@ public class Battle
         m_state = GameState.SELECT_CARDS;
     }
 
-    public void NextState()
+    public void FinishMatch()
     {
-        int iState = (int)state;
-        ++iState;
-        m_state = (GameState)(iState);
-        if (state == GameState.COUNT)
+        if (state == GameState.BATTLE)
         {
             m_state = GameState.SELECT_CARDS;
-            ++m_currentWave;
-            if (m_currentWave >= WAVES)
-                m_finished = true;
+            IncrementWave();
+        }
+        else
+        {
+            Debug.LogWarning("Bad call to Select Cards state");
+        }
+    }
+
+    void IncrementWave()
+    {
+        ++m_currentWave;
+        if (m_currentWave >= WAVES)
+        {
+            m_finished = true;
+        }
+    }
+
+    public void ToBattle()
+    {
+        if (state == GameState.SELECT_CARDS)
+        {
+            m_state = GameState.BATTLE;
+        }
+        else
+        {
+            Debug.LogWarning("Bad call to Select Cards state");
         }
     }
 

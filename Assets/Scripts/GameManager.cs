@@ -268,7 +268,6 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
-        currentBattle.NextState();
         return toReturn;
     }
 
@@ -277,7 +276,7 @@ public class GameManager : MonoBehaviour
         get { return currentBattle.isFinished; }
     }
 
-    public Card GetRandomCard()
+    public Card GetRivalRandomCard()
     {
         int rCollection = UnityEngine.Random.Range(0, m_AllCardColletion.Count);
         int rCard = UnityEngine.Random.Range(0, m_AllCardColletion[(Card.Collection)rCollection].Count);
@@ -290,8 +289,13 @@ public class GameManager : MonoBehaviour
         //{
         //    Debug.Log("Count:" + m_AllCardColletion[(Card.Collection)rCollection].Count + " random: " + rCard);
         //}
-
         Card newCard = m_AllCardColletion[(Card.Collection)rCollection][rCard];
+        return newCard;
+    }
+
+    public Card GetRandomCard()
+    {
+        Card newCard = GetRivalRandomCard();
 
         bool found = false;
         Card toReturn = newCard;
@@ -313,4 +317,22 @@ public class GameManager : MonoBehaviour
         return toReturn;
     }
 
+
+    internal void ToBattle()
+    {
+        currentBattle.ToBattle();
+    }
+
+    internal void FinishMatch()
+    {
+        currentBattle.FinishMatch();
+    }
+
+    public int currentWave
+    {
+        get
+        {
+            return currentBattle.currentWave;
+        }
+    }
 }

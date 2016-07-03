@@ -95,9 +95,10 @@ public class BattleManager : MonoBehaviour
             goWin.transform.localScale = Vector3.Lerp(go1.transform.localScale, finalScale, timeAcum / timeAnimation);
             yield return new WaitForSeconds(deltaTime);
         }
+        GameManager.GetInstance().FinishMatch();
 
         if (GameManager.GetInstance().isBattleFinished)
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("Card");
         else
             SceneManager.LoadScene("SelectCards");
     }
