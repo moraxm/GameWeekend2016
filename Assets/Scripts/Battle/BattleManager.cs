@@ -61,16 +61,12 @@ public class BattleManager : MonoBehaviour
 
         if (victory == 1)
         {
-            Vector3 v = go1.transform.position;
-            v.z = 10;
-            go1.transform.position = v;
+            SetMoreLayer(go1, go2);
             goWin = go1;
         }
         else
         {
-            Vector3 v = go2.transform.position;
-            v.z = 10;
-            go2.transform.position = v;
+            SetMoreLayer(go2, go1);
             goWin = go2;
         }
 
@@ -101,6 +97,12 @@ public class BattleManager : MonoBehaviour
             SceneManager.LoadScene("Card");
         else
             SceneManager.LoadScene("SelectCards");
+    }
+
+    private void SetMoreLayer(GameObject front, GameObject back)
+    {
+        back.transform.SetParent(front.transform.parent);
+        front.transform.SetAsLastSibling();
     }
 
 }
