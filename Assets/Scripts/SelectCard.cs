@@ -9,6 +9,11 @@ public class SelectCard : MonoBehaviour {
 
     public Image ImageSelected;
 
+    public void Awake()
+    {
+        selected = new List<Card>();
+    }
+
     public void Select() {
         CardUI card = GetComponentInChildren<CardUI>();
         if (selected.Contains(card.card))
