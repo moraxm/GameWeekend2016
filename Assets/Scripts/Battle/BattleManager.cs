@@ -35,7 +35,7 @@ public class BattleManager : MonoBehaviour
         }
 
         player1Text.text = gm.player1points.ToString();
-        player1Text.text = gm.player2points.ToString();
+        player2Text.text = gm.player2points.ToString();
 
     }
 
