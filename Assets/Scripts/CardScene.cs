@@ -29,6 +29,7 @@ public class CardScene : MonoBehaviour
             goBet = gm.betCardPlayer1;
             source.clip = audio_lose;
             source.Play();
+            gm.LostCard(goBet);
         }
         else
         {
@@ -38,7 +39,8 @@ public class CardScene : MonoBehaviour
             goBet = gm.betCardPlayer2;
             source.clip = audio_win;
             source.Play();
-    }
+            gm.WinCard(goBet);
+        }
 
         card.fillUI(goBet);
 

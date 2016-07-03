@@ -94,7 +94,10 @@ public class BattleManager : MonoBehaviour
         GameManager.GetInstance().FinishMatch();
 
         if (GameManager.GetInstance().isBattleFinished)
+        {
             SceneManager.LoadScene("Card");
+            GameManager.GetInstance().FinishBattle();
+        }
         else
             SceneManager.LoadScene("SelectCards");
     }

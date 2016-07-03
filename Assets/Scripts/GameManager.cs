@@ -28,11 +28,31 @@ public class GameManager : MonoBehaviour
             return currentBattle.betCardPlayer1; 
         }
     }
+
+    internal void LostCard(Card card)
+    {
+        card.cardCount--;
+        if (card.cardCount <= 0)
+        {
+            playerCardCollection[card.collection].Remove(card);
+        }
+    }
+
     int m_player1points;
     public int player1points
     {
         get { return m_player1points; }
     }
+
+    internal void WinCard(Card card)
+    {
+        if (card.cardCount == 0)
+        {
+            playerCardCollection[card.collection].Add(card);
+        }
+        card.cardCount++;
+    }
+
     Card[] m_cardsPlayer1 = new Card[2];
     public Card[] cardsPlayer1
     {
@@ -250,7 +270,7 @@ public class GameManager : MonoBehaviour
         if (!currentCardPlayer1 || !currentCardPlayer1) return -1;
         if (currentBattle.isFinished) return -1;
         
-        int result = fightTable[(int)currentCardPlayer1.type][(int)currentCardPlayer1.type];
+        int result = fightTable[(int)currentCardPlayer1.type][(int)currentCardPlayer2.type];
         int toReturn = -1;
         switch (result)
         {
@@ -314,6 +334,7 @@ public class GameManager : MonoBehaviour
         if (!found)
         {
             m_playerCardColletion[newCard.collection].Add(newCard);
+            newCard.cardCount = 1;
             
         }
         return toReturn;
@@ -336,5 +357,10 @@ public class GameManager : MonoBehaviour
         {
             return currentBattle.currentWave;
         }
+    }
+
+    internal void FinishBattle()
+    {
+        currentBattle.Init();
     }
 }
