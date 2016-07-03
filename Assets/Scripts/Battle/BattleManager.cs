@@ -10,7 +10,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject[] positions;
 
-    public GameObject centerPosition;
+    public GameObject centerPositionPlayer1;
+    public GameObject centerPositionPlayer2;
     float timeAnimation = 2;
 
     public Text player1Text;
@@ -18,6 +19,8 @@ public class BattleManager : MonoBehaviour
 
     public CardUI[] player1Cards;
     public CardUI[] player2Cards;
+    public Transform outPositionPlayer1;
+    public Transform outPositionPlayer2;
 
     void Start()
     {
@@ -53,10 +56,12 @@ public class BattleManager : MonoBehaviour
         float timeAcum = 0;
         float deltaTime = 0.1f;
 
-    //GameObject go1 = gm.GetCurrentCard(1);
-    //GameObject go2 = gm.GetCurrentCard(2);
+        //GameObject go1 = gm.GetCurrentCard(1);
+        //GameObject go2 = gm.GetCurrentCard(2);
         GameObject go1 = player1Cards[gm.currentCardPlayer1].gameObject;
-        GameObject go2 = player2Cards[gm.currentCardPlayer1].gameObject;
+        GameObject go1Other = player1Cards[(gm.currentCardPlayer1 + 1) % 2].gameObject;
+        GameObject go2 = player2Cards[gm.currentCardPlayer2].gameObject;
+        GameObject go2Other = player2Cards[(gm.currentCardPlayer2 + 1) % 2].gameObject;
         GameObject goWin;
 
         if (victory == 1)
@@ -69,12 +74,18 @@ public class BattleManager : MonoBehaviour
             SetMoreLayer(go2, go1);
             goWin = go2;
         }
-
+        Vector3 outOther1 = go1Other.transform.position;
+        outOther1.y = outPositionPlayer1.position.y;
+        Vector3 outOther2 = go2Other.transform.position;
+        outOther2.y = outPositionPlayer2.position.y;
         while (timeAcum < timeAnimation)
         {
             timeAcum += deltaTime;
-            go1.transform.position = Vector3.Lerp(go1.transform.position, centerPosition.transform.position, timeAcum / timeAnimation);
-            go2.transform.position = Vector3.Lerp(go2.transform.position, centerPosition.transform.position, timeAcum / timeAnimation);
+            go1.transform.position = Vector3.Lerp(go1.transform.position, centerPositionPlayer1.transform.position, timeAcum / timeAnimation);
+            go2.transform.position = Vector3.Lerp(go2.transform.position, centerPositionPlayer2.transform.position, timeAcum / timeAnimation);
+
+            go1Other.transform.position = Vector3.Lerp(go1Other.transform.position, outOther1, timeAcum * 2 / timeAnimation);
+            go2Other.transform.position = Vector3.Lerp(go2Other.transform.position, outOther2, timeAcum * 2 / timeAnimation);
 
             yield return new WaitForSeconds(deltaTime);
         }
