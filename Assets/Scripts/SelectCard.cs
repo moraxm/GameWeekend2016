@@ -23,7 +23,7 @@ public class SelectCard : MonoBehaviour {
             c.a = 0f;
             ImageSelected.color = c;
         } else
-        if (selected.Count < MaxCards)
+        if (selected.Count < MaxCards && card.card.cardCount > 0)
         {
             selected.Add(card.card);
             Color c = ImageSelected.color;
