@@ -250,7 +250,7 @@ public class GameManager : MonoBehaviour
         if (!currentCardPlayer1 || !currentCardPlayer1) return -1;
         if (currentBattle.isFinished) return -1;
         
-        int result = fightTable[(int)currentCardPlayer1.type][(int)currentCardPlayer1.type];
+        int result = fightTable[(int)currentCardPlayer1.type][(int)currentCardPlayer2.type];
         int toReturn = -1;
         switch (result)
         {
@@ -336,5 +336,10 @@ public class GameManager : MonoBehaviour
         {
             return currentBattle.currentWave;
         }
+    }
+
+    internal void FinishBattle()
+    {
+        currentBattle.Init();
     }
 }
