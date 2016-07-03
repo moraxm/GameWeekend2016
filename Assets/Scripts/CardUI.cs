@@ -22,7 +22,7 @@ public class CardUI : MonoBehaviour {
         name.text = card.name;
         description.text = card.description;
         image.sprite = card.image;
-        collection.text = card.collection + (card.collectionNumber + 1) + " of 10";
+        collection.text = card.collection.ToString() + " " + (card.collectionNumber + 1) + " of 4";
         type.sprite = GameManager.GetInstance().spriteTypes[(int)card.type];
     }
 }
