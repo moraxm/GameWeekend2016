@@ -7,7 +7,7 @@ public class CardScene : MonoBehaviour
     public GameObject m_win;
     public GameObject m_lose;
 
-    public GameObject card;
+    public CardUI card;
 
     public float timeAnimation = 1;
 
@@ -40,7 +40,7 @@ public class CardScene : MonoBehaviour
             source.Play();
     }
 
-        goBet.transform.position = card.transform.position;
+        card.fillUI(goBet);
 
         StartCoroutine(PlayAnimation(visible));
 
