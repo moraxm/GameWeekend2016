@@ -314,6 +314,7 @@ public class GameManager : MonoBehaviour
         if (!found)
         {
             m_playerCardColletion[newCard.collection].Add(newCard);
+            newCard.cardCount = 1;
             
         }
         return toReturn;
