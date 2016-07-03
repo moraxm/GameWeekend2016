@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class SelectCard : MonoBehaviour {
 
     public static List<Card> selected = new List<Card>();
-    private static int MaxCards = 2;
+    public int MaxCards = 2;
 
     public Image ImageSelected;
 
