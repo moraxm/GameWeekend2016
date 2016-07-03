@@ -55,8 +55,8 @@ public class BattleManager : MonoBehaviour
 
     //GameObject go1 = gm.GetCurrentCard(1);
     //GameObject go2 = gm.GetCurrentCard(2);
-        GameObject go1 = gm.cardsPlayer1[gm.currentCardPlayer1].gameObject;
-        GameObject go2 = gm.cardsPlayer1[gm.currentCardPlayer1].gameObject;
+        GameObject go1 = player1Cards[gm.currentCardPlayer1].gameObject;
+        GameObject go2 = player2Cards[gm.currentCardPlayer1].gameObject;
         GameObject goWin;
 
         if (victory == 1)
