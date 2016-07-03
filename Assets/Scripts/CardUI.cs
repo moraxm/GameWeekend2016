@@ -23,5 +23,6 @@ public class CardUI : MonoBehaviour {
         description.text = card.description;
         image.sprite = card.image;
         collection.text = card.collection + (card.collectionNumber + 1) + " of 10";
+        type.sprite = GameManager.GetInstance().spriteTypes[(int)card.type];
     }
 }
