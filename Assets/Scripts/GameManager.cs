@@ -263,6 +263,15 @@ public class GameManager : MonoBehaviour
         currentBattle.Init();
     } 
 
+    void Update()
+    {
+      if(Input.GetKeyDown(KeyCode.Escape))
+      {
+        Application.Quit();
+      }
+
+    }
+
     public int Play()
     {
         Card currentCardPlayer1 = cardsPlayer1[m_currentCardPlayer1];
