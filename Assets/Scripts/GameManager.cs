@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         {
             if (m_cardsPlayer2 == null)
             {
-                SetCardsPlayer2(GetRandomCard(), GetRandomCard());
+                SetCardsPlayer2(GetRivalRandomCard(), GetRivalRandomCard());
                 Debug.LogWarning("No cards for player 2. You are probably playing a scene without using the normal workflow of the game. Using a random card");
             }
             return m_cardsPlayer2; 
