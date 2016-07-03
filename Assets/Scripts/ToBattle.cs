@@ -5,6 +5,9 @@ public class ToBattle : MonoBehaviour {
     
     public void Battle()
     {
-        GameManager.GetInstance().SetCardsPlayer1(SelectCard.selected[0], SelectCard.selected[1]);
+        GameManager gm = GameManager.GetInstance();
+        gm.SetCardsPlayer1(SelectCard.selected[0], SelectCard.selected[1]);
+        gm.SetCardsPlayer2(gm.GetRandomCard(), gm.GetRandomCard());
+        
     }
 }

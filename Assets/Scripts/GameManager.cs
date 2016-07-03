@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Transform t in transform)
         {
-            Destroy(t.gameObject);
+            //Destroy(t.gameObject);
         }
     }
 
@@ -208,6 +208,7 @@ public class GameManager : MonoBehaviour
             GameObject go = Instantiate(c.gameObject);
             Card card = go.GetComponent<Card>();
             m_AllCardColletion[card.collection].Add(card);
+            card.transform.SetParent(transform);    
         }
 
         foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))

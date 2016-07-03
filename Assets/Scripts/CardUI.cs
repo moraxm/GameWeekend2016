@@ -14,11 +14,14 @@ public class CardUI : MonoBehaviour {
 
     public Text collection;
 
+    public Card card;
+
     public void fillUI(Card card)
     {
+        this.card = card;
         name.text = card.name;
         description.text = card.description;
         image.sprite = card.image;
-        collection.text = card.collection + card.collectionNumber + " of 10";
+        collection.text = card.collection + (card.collectionNumber + 1) + " of 10";
     }
 }
