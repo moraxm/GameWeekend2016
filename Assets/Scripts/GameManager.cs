@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
             if (currentBattle.betCardPlayer2 == null)
             {
                 Debug.LogWarning("No bet card for player 2. You are probably playing a scene without using the normal workflow of the game. Using a random card");
-                currentBattle.betCardPlayer2 = GetRandomCard();
+                currentBattle.betCardPlayer2 = GetRivalRandomCard();
             }
             return currentBattle.betCardPlayer2; 
         }
