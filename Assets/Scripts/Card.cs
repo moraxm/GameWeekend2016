@@ -19,7 +19,6 @@ public class Card : MonoBehaviour
         CINEMA,
         MUSIC,
         SPORTS,
-        TV,
     }
 
     public string name;

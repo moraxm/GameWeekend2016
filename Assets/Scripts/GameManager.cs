@@ -159,6 +159,12 @@ public class GameManager : MonoBehaviour
         fightTable[(int)Card.CardType.SPOCK][(int)Card.CardType.SPOCK] = 0;
 
         // Cards
+        m_playerCardColletion = new Dictionary<Card.Collection, List<Card>>();
+        foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))
+        {
+            m_playerCardColletion[col] = new List<Card>();
+        }
+
         m_AllCardColletion = new Dictionary<Card.Collection, List<Card>>();
         foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))
         {
@@ -177,6 +183,22 @@ public class GameManager : MonoBehaviour
             m_AllCardColletion[col].Sort(
                 delegate(Card c1, Card c2)
                 { 
+                    return c1.collectionNumber.CompareTo(c2.collectionNumber);
+                }
+            );
+        }
+
+        // HACK Get som random cards
+        for (int i = 0; i < 8; ++i)
+        {
+            GetRandomCard();
+        }
+
+        foreach (Card.Collection col in Enum.GetValues(typeof(Card.Collection)))
+        {
+            m_AllCardColletion[col].Sort(
+                delegate(Card c1, Card c2)
+                {
                     return c1.collectionNumber.CompareTo(c2.collectionNumber);
                 }
             );
@@ -226,6 +248,16 @@ public class GameManager : MonoBehaviour
     {
         int rCollection = UnityEngine.Random.Range(0, m_AllCardColletion.Count);
         int rCard = UnityEngine.Random.Range(0, m_AllCardColletion[(Card.Collection)rCollection].Count);
+        //Card newCard = null;
+        //try
+        //{
+        //    newCard = m_AllCardColletion[(Card.Collection)rCollection][rCard];
+        //}
+        //catch (ArgumentException e)
+        //{
+        //    Debug.Log("Count:" + m_AllCardColletion[(Card.Collection)rCollection].Count + " random: " + rCard);
+        //}
+
         Card newCard = m_AllCardColletion[(Card.Collection)rCollection][rCard];
 
         bool found = false;
