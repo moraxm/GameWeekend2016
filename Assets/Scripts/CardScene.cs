@@ -11,6 +11,10 @@ public class CardScene : MonoBehaviour
 
     public float timeAnimation = 1;
 
+    public AudioSource source;
+    public AudioClip audio_win;
+    public AudioClip audio_lose;
+
     // Use this for initialization
     void Start()
     {
@@ -23,6 +27,8 @@ public class CardScene : MonoBehaviour
             m_lose.SetActive(true);
             visible = m_lose;
             goBet = gm.betCardPlayer1;
+            source.clip = audio_lose;
+            source.Play();
         }
         else
         {
@@ -30,7 +36,9 @@ public class CardScene : MonoBehaviour
             m_lose.SetActive(false);
             visible = m_win;
             goBet = gm.betCardPlayer2;
-        }
+            source.clip = audio_win;
+            source.Play();
+    }
 
         goBet.transform.position = card.transform.position;
 
