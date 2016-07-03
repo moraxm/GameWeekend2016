@@ -28,11 +28,31 @@ public class GameManager : MonoBehaviour
             return currentBattle.betCardPlayer1; 
         }
     }
+
+    internal void LostCard(Card card)
+    {
+        card.cardCount--;
+        if (card.cardCount <= 0)
+        {
+            playerCardCollection[card.collection].Remove(card);
+        }
+    }
+
     int m_player1points;
     public int player1points
     {
         get { return m_player1points; }
     }
+
+    internal void WinCard(Card card)
+    {
+        if (card.cardCount == 0)
+        {
+            playerCardCollection[card.collection].Add(card);
+        }
+        card.cardCount++;
+    }
+
     Card[] m_cardsPlayer1 = new Card[2];
     public Card[] cardsPlayer1
     {
