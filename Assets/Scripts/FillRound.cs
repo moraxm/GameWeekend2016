@@ -8,7 +8,7 @@ public class FillRound : MonoBehaviour {
 
     public void Start()
     {
-        roundText.text += GameManager.GetInstance().currentWave;
+        roundText.text += (GameManager.GetInstance().currentWave + 1);
     }
 
 }
