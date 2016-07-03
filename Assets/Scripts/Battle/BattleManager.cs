@@ -16,6 +16,8 @@ public class BattleManager : MonoBehaviour
     public Text player1Text;
     public Text player2Text;
 
+    public CardUI[] player1Cards;
+    public CardUI[] player2Cards;
 
     void Start()
     {
@@ -25,23 +27,16 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < gm.cardsPlayer1.Length; ++i)
         {
-            GameObject go = gm.cardsPlayer1[i].gameObject;
-            ColocateCard(go, 0 + i);
+            player1Cards[i].fillUI(gm.cardsPlayer1[i]);
         }
         for (int i = 0; i < gm.cardsPlayer2.Length; ++i)
         {
-            GameObject go = gm.cardsPlayer2[i].gameObject;
-            ColocateCard(go, 2 + i);
+            player2Cards[i].fillUI(gm.cardsPlayer2[i]);
         }
 
         player1Text.text = gm.player1points.ToString();
         player1Text.text = gm.player2points.ToString();
 
-    }
-
-    private void ColocateCard(GameObject go, int pos)
-    {
-        go.transform.position = positions[pos].transform.position;
     }
 
     public void SelectedCard(int pos)
