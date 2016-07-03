@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
         return m_instance;
     }
 
+    public Sprite[] spriteTypes;
+
     // Current game stadistics
     // Player 1
     public Card betCardPlayer1

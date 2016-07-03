@@ -1,10 +1,21 @@
 fileFormatVersion: 2
 guid: e339b66433fcba745b2a34147744f5bb
-timeCreated: 1467467572
+timeCreated: 1467540049
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - name: {instanceID: 0}
+  - image: {instanceID: 0}
+  - type: {instanceID: 0}
+  - description: {instanceID: 0}
+  - collection: {instanceID: 0}
+  - card: {instanceID: 0}
+  - piedra: {fileID: 21300000, guid: eac54bdd454bf6f4f8dd2b6e434e8a52, type: 3}
+  - papel: {fileID: 21300000, guid: 0b6db3acc1b08db4480b8c53e35e31a7, type: 3}
+  - tijera: {fileID: 21300000, guid: 40cce1cebadd3ed4aa615c07fb99f303, type: 3}
+  - lagarto: {fileID: 21300000, guid: 757d6ba20083fab42add55c1de10d819, type: 3}
+  - spock: {fileID: 21300000, guid: b2e42abe8b2fef64c97d584f19e477ae, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
