@@ -10,17 +10,17 @@ public class SelectCard : MonoBehaviour {
     public Image ImageSelected;
 
     public void Select() {
-        Card card = GetComponentInChildren<Card>();
-        if (selected.Contains(card))
+        CardUI card = GetComponentInChildren<CardUI>();
+        if (selected.Contains(card.card))
         {
-            selected.Remove(card);
+            selected.Remove(card.card);
             Color c = ImageSelected.color;
             c.a = 0f;
             ImageSelected.color = c;
         } else
         if (selected.Count < MaxCards)
         {
-            selected.Add(card);
+            selected.Add(card.card);
             Color c = ImageSelected.color;
             c.a = 0.33f;
             ImageSelected.color = c;
